@@ -1,12 +1,11 @@
 import React from 'react'
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import UserListComponent from "../user/UserListComponentCategory";
-import AddUserComponent from "../user/AddUserComponent";
-import EditUserComponent from "../user/EditUserComponent";
-import ProductComponent from "../user/ProductListCategoryComponent";
-import ProductDetailComponent from "../user/ProductInfoComponet";
-import Demo from "../user/demo";
+// import ProductComponent from "../user/ProductListCategoryComponent";
+// import ProductDetailComponent from "../user/ProductInfoComponet";
+// import Demo from "../user/demo";
 import MainComponent from "../../Maincomponent/Main";
+import AddCart from "../../Cartcomponent/AddCart";
+import CartList from "../../Cartcomponent/CartList";
 
 const AppRouter = () => {
     return(
@@ -15,9 +14,11 @@ const AppRouter = () => {
                     <Switch>
                         {/* <Route exact path="/" component={UserListComponent} /> */}
                         <Route exact path="/" component={MainComponent} />
-                        <Route path="/product-list" component={ProductComponent} />
+                        {/* <Route path="/product-list" component={ProductComponent} />
                         <Route path="/product-detail" component={ProductDetailComponent} />
-                        <Route path="/demo" component={Demo} />
+                        <Route path="/demo" component={Demo} /> */}
+                        <Route exact path="/cart" component={AddCart} />
+                        <Route exact path="/cart/list" component={CartList}/>
                     </Switch>
             </BrowserRouter>
         </div>
