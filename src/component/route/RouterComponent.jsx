@@ -6,7 +6,8 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import MainComponent from "../../Maincomponent/Main";
 import AddCart from "../../Cartcomponent/AddCart";
 import CartList from "../../Cartcomponent/CartList";
-
+import OrderMain from "../../Ordercomponent/OrderMain";
+import KakaoPaySuccess from '../../Ordercomponent/KakaoPaySuccess';
 const AppRouter = () => {
     return(
         <div style={style}>
@@ -19,6 +20,8 @@ const AppRouter = () => {
                         <Route path="/demo" component={Demo} /> */}
                         <Route exact path="/cart" component={AddCart} />
                         <Route exact path="/cart/list" component={CartList}/>
+                        <Route exact path="/order" component={OrderMain}/>
+                        <Route path="/order/kakaoPaySuccess" component={KakaoPaySuccess}/>
                     </Switch>
             </BrowserRouter>
         </div>

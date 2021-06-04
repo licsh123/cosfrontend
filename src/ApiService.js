@@ -17,6 +17,23 @@ class ApiService {
     updateCart(cart){
         return axios.put("http://localhost:8081/cart/modify",cart)
     }
+    
+
+    showUserInfo(){
+        return axios.get("http://localhost:8081/order/user")
+    }
+
+    kakaoPay(){
+        return axios.post("http://localhost:8081/order/kakaoPay")
+    }
+
+    // kakaoPaySuccess(test){
+    //     return axios.get("http://localhost:8081/order/kakaoPaySuccess")
+    // }
+    kakaoPayTest(test){
+        return axios.get("http://localhost:8081/order/kakaoPaySuccess"+test)
+    }
+
 
 }
 
