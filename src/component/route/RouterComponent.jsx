@@ -11,7 +11,6 @@ import KakaoPaySuccess from '../../Ordercomponent/KakaoPaySuccess';
 const AppRouter = () => {
     return(
         <div style={style}>
-            <BrowserRouter>
                     <Switch>
                         {/* <Route exact path="/" component={UserListComponent} /> */}
                         <Route exact path="/" component={MainComponent} />
@@ -20,10 +19,10 @@ const AppRouter = () => {
                         <Route path="/demo" component={Demo} /> */}
                         <Route exact path="/cart" component={AddCart} />
                         <Route exact path="/cart/list" component={CartList}/>
+                        
                         <Route exact path="/order" component={OrderMain}/>
                         <Route path="/order/kakaoPaySuccess" component={KakaoPaySuccess}/>
                     </Switch>
-            </BrowserRouter>
         </div>
     );
 }

@@ -17,11 +17,18 @@ class ApiService {
     updateCart(cart){
         return axios.put("http://localhost:8081/cart/modify",cart)
     }
+    showSumMoney(){
+        return axios.get("http://localhost:8081/cart/summoney")
+    }
     
+    showAddressList(){
+        return axios.get("http://localhost:8081/order/address")
+    }
 
     showUserInfo(){
         return axios.get("http://localhost:8081/order/user")
     }
+    
 
     kakaoPay(){
         return axios.post("http://localhost:8081/order/kakaoPay")
