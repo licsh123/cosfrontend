@@ -15,6 +15,7 @@ function Banner(){
     const showSidebar = ()=> setSidebar(!sidebar);
 
 
+
     return(
         <>
             <div className="banner">
@@ -33,9 +34,11 @@ function Banner(){
                         alt='testA' />
                     </div>
                     <div className="right_menu">
-                    <IconButton className="menuButton">
-                        <ShoppingCartOutlinedIcon/>
-                    </IconButton>
+                    <Link to="/cart/list">
+                        <IconButton className="menuButton">
+                            <ShoppingCartOutlinedIcon/>
+                        </IconButton>
+                    </Link>
                     </div>
             </div>
             <nav className={sidebar ? "nav-menu active":"nav-menu"}>

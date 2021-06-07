@@ -10,12 +10,16 @@ const KakaoPaySuccess=(props)=>{
         approved_at:"",
         item_name:""
     });
+
+
+
     const {search} = props.location;
 
 
     const test = {
         pg_token:search.split("=")[1]
     }
+ 
 
 
     useEffect(()=>{
@@ -25,9 +29,7 @@ const KakaoPaySuccess=(props)=>{
     const kakaoPayInfoPull=(pg_token)=>{
         ApiService.kakaoPayTest(pg_token)
         .then(res=>{
-            console.log(res)
             setOrderInfo(res.data)
-            console.log(orderInfo)
         })
         .catch(
             console.log("카카오페이 주문정보 오류 발생")
@@ -39,7 +41,13 @@ const KakaoPaySuccess=(props)=>{
 
     return(
         <div>
-            <h2>주문이 완료되었습니다</h2>
+            
+            <div>
+                <h2>상품 주문이 완료되었습니다.</h2>
+                <h2>상품명 : {orderInfo.item_name}</h2>
+                <h2>승인 시간: {orderInfo.approved_at}</h2>
+                <h2>총 주문 금액: {orderInfo.amount["total"]}</h2>
+            </div>
         </div>
     );
 

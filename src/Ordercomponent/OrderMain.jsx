@@ -5,31 +5,59 @@ import axios from 'axios';
 import { Link,useHistory } from 'react-router-dom';
 
 const OrderMain=()=>{
-    const [userInfo,setUserInfo] = useState([]);
+    const [userInfo,setUserInfo] = useState({
+        user_email:"",
+        user_name:"",
+        user_phone:""
+    });
     const [radioStatus,setRadioStatus] = useState("option1");
-    const history = useHistory();
+    const [addresses,setAddresses] = useState([]);
+    const [innerRadioStatus,setInnerRadioStatus] = useState(0);
+    const [carts,setCarts] = useState([]);
 
     
 
     useEffect(()=>{
-    });
-
-    // const pullUserInfo=()=>{
-    //     ApiService.showUserInfo()
-    //     .then(res=>{
-    //         setUserInfo(res.data);
-    //     })
-    // }
+        reloadAddress();
+        reloadOrderList();
+        reloadUserInfo();
+    },[]);
 
     const changeRadio = (e)=>{
         setRadioStatus(e.target.value);
     }
-    // const kakaoPay=()=>{
-    //     axios.post("http://localhost:8081/kakaoPay")
-    //     .then(response=>{
-    //         console.log(response);
-    //     })
-    // }
+    const changeInnerRadio = (e)=>{
+        setInnerRadioStatus(e.target.value);
+    }
+
+    const reloadAddress = () =>{
+        ApiService.showAddressList()
+            .then(res => {
+                setAddresses(res.data);
+            })
+            .catch(err => {
+                console.log('reloadAddressList() Error!',err);
+            })
+    }
+
+    const reloadOrderList = () =>{
+        ApiService.showCartList()
+            .then(res => {
+                setCarts(res.data);
+            })
+            .catch(err => {
+                console.log('reloadBoardList() Error!',err);
+            })
+        }
+    const reloadUserInfo=()=>{
+        ApiService.showUserInfo()
+            .then(res=>{
+                setUserInfo(res.data);
+            })
+            .catch(err => {
+                console.log('reloadUserInfo() Error!',err);
+            })
+    }
 
     const kakaoPay = ()=>{
         ApiService.kakaoPay()
@@ -46,13 +74,30 @@ const OrderMain=()=>{
     return(
         <div>
             <h2>주문서</h2>
+            <div className="oderList">
+                        {carts.map((cart,index) =>
+                            <div key={cart.cartId}>
+                                <img src={cart.productImagePath}/>
+                                <p>{cart.productName}</p>
+                                <p>{cart.productPrice}</p>
+                                <p>사이즈: {cart.productSize}</p>
+                                <p>컬러 블루</p>
+                                <p>수량: {cart.amount}</p>
+                                <div className="cartprice">
+                                    <p>{cart.money}</p>
+                                </div>
+                                <hr></hr>
+                            </div>
+                        )}
+                </div>
             <div className="order_user">
                 <p>1.주문 고객 정보</p>
                 <hr></hr>
-                {/* <p>{userInfo[0]}</p>
-                <p>{userInfo[1]}</p>
-                <p>{userInfo[2]}</p> */}
+                <p>{userInfo.user_email}</p>
+                <p>{userInfo.user_name}</p>
+                <p>{userInfo.user_phone}</p>
             </div>
+            <hr></hr>
             <div className="adress_info">
                 <p>2.배송지 정보</p>
                 <hr></hr>
@@ -74,9 +119,26 @@ const OrderMain=()=>{
                 </div>
                 <hr></hr>
                 <div style={radioStatus=="option1"?{}:{display:"none"}} >
-                    <p>추성훈</p>
-                    <p>010-3677-2109</p>
-                    <p>서울특별시 영등포구 도신로 15가길 8 302호</p>
+                    <div className="addressListRadio">
+                        {addresses.map((address,index) =>
+                            <label key={index}>
+                            <input type="radio"
+                            value={index}
+                            checked={innerRadioStatus==index}
+                            onChange={changeInnerRadio}/>
+                            {index+1}번 배송지
+                            </label>
+                        )}
+                      </div>
+                      <div>
+                      {addresses.map((address,index)=>
+                      <div style={innerRadioStatus==index?{}:{display:"none"}}>
+                            <p>우편번호: {address.postCode}</p>
+                            <p>주소: {address.address}</p>
+                            <p>상세 주소: {address.detailAddress}</p>
+                        </div>
+                        )}
+                      </div>
                 </div>
                 <div style={radioStatus=="option2"?{}:{display:"none"}}>
                     <p>김영한</p>
