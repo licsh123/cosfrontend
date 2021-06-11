@@ -29,6 +29,9 @@ class ApiService {
         return axios.get("http://localhost:8081/order/user")
     }
     
+    addOrderInfo(order){
+        return axios.post("http://localhost:8081/order/insert",order)
+    }
 
     kakaoPay(){
         return axios.post("http://localhost:8081/order/kakaoPay")

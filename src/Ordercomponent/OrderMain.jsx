@@ -4,17 +4,33 @@ import React, { useEffect,useState } from 'react'
 import axios from 'axios';
 import { Link,useHistory } from 'react-router-dom';
 
+
 const OrderMain=()=>{
     const [userInfo,setUserInfo] = useState({
         user_email:"",
         user_name:"",
         user_phone:""
     });
+    const imgUrl = "/images/";
     const [radioStatus,setRadioStatus] = useState("option1");
     const [addresses,setAddresses] = useState([]);
     const [innerRadioStatus,setInnerRadioStatus] = useState(0);
     const [carts,setCarts] = useState([]);
 
+    // let order={
+    //     userId:carts[0].userId,
+    //     address:addresses[innerRadioStatus].address,
+    //     detailAddress:addresses[innerRadioStatus].detailAddress,
+    //     orderProductAmount:carts.length,
+    //     orderName:carts[0].productName
+    // }
+    let order={
+        userId:"",
+        address:"",
+        detailAddress:"",
+        orderProductAmount:0,
+        orderName:""
+    }
     
 
     useEffect(()=>{
@@ -44,6 +60,10 @@ const OrderMain=()=>{
         ApiService.showCartList()
             .then(res => {
                 setCarts(res.data);
+                order={
+                    userId:carts[0].userId,
+                    orderName:carts[0].productName
+                }
             })
             .catch(err => {
                 console.log('reloadBoardList() Error!',err);
@@ -68,25 +88,46 @@ const OrderMain=()=>{
             console.log("오류 발생")
         )
     }
+    
+    const submitOrderInfo=()=>{
+        
+        console.log(order)
+        order={
+            address:addresses[innerRadioStatus].address,
+            detailAddress:addresses[innerRadioStatus].detailAddress,
+            orderProductAmount:carts.length,
+        }
+
+        ApiService.addOrderInfo(order)
+        .catch(err=>{
+            console.log("addOrderInfo 에러",err);
+        });
+    }
+    const submitSomeThing=()=>{
+        submitOrderInfo();
+        kakaoPay();
+    }
 
 
     
     return(
         <div>
-            <h2>주문서</h2>
+            <div style={{fontSize:'13px',textAlign:"center",marginTop:"50px",marginBottom:'20px'}}>주문서</div>
             <div className="oderList">
                         {carts.map((cart,index) =>
                             <div key={cart.cartId}>
-                                <img src={cart.productImagePath}/>
+                                <img src={imgUrl+(cart.productImagePath).split(',')[0]}/>
                                 <p>{cart.productName}</p>
-                                <p>{cart.productPrice}</p>
+                                <p>가격: {cart.productPrice}</p>
                                 <p>사이즈: {cart.productSize}</p>
-                                <p>컬러 블루</p>
+                                <p>컬러: {cart.productColor}</p>
                                 <p>수량: {cart.amount}</p>
                                 <div className="cartprice">
                                     <p>{cart.money}</p>
                                 </div>
-                                <hr></hr>
+                                <div>
+                                    <hr style={{marginTop:"60px",marginBottom:"30px",color:"lightgray"}}></hr>
+                                </div>
                             </div>
                         )}
                 </div>
@@ -149,7 +190,7 @@ const OrderMain=()=>{
             </div>
             <div className="payAPI">
                 <p>4.결제</p>
-                <Button variant="contained" color="primary" onClick={kakaoPay}>결제하기</Button>
+                <Button variant="contained" color="primary" onClick={submitSomeThing}>결제하기</Button>
             </div>
             <div>
             </div>

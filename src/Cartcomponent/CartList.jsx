@@ -76,7 +76,8 @@ const CartList = ()=>{
     //     setSumMoneys(result);
     // }
     return (
-                    <div className="cartlistmain">
+                <div>
+                    <div className="cartlistmain" style={carts.length?{}:{display:"none"}}>
                       <div className="cartlistheader">
                           <p>장바구니</p>
                           <hr></hr>
@@ -87,11 +88,11 @@ const CartList = ()=>{
                                 <div className="exitbutton">
                                     <Button onClick={()=>deleteCart(cart.cartId)}>x</Button>
                                 </div>
-                                <img src={imgUrl+cart.productImagePath}/>
+                                <img src={imgUrl+(cart.productImagePath).split(',')[0]}/>
                                 <p>{cart.productName}</p>
                                 <p>{cart.productPrice}</p>
                                 <p>{cart.productSize}</p>
-                                <p>컬러 블루</p>
+                                <p>{cart.productColor}</p>
                                 <p>수량 
                                 <Button onClick={()=>minusChange("amount",index)}>-</Button>
                                 {cart.amount}
@@ -125,6 +126,14 @@ const CartList = ()=>{
                             </div>
                         </div>
                     </div>
+                    <div className="nullcart" style={carts.length?{display:"none"}:{textAlign:"center",marginTop:"100px",marginBottom:'500px'}}>
+                    <div style={{marginBottom:"20px"}}>장바구니가 비어있습니다.</div>
+                    <Link to="/" style={{textDecoration: 'none',fontSize:'13px'}}>
+                                    <Button >홈으로 되돌아가기</Button>
+                    </Link>
+                    </div>
+                
+                </div>
                 );
 }
 export default CartList;

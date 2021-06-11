@@ -3,7 +3,7 @@ import ApiService from '../ApiService';
 import React, { useEffect,useState } from 'react'
 import axios from 'axios';
 import { Link,RouteComponentProps } from 'react-router-dom';
-
+import "./css/ordermain.css";
 const KakaoPaySuccess=(props)=>{
     const [orderInfo,setOrderInfo] = useState({
         amount:[],
@@ -42,12 +42,29 @@ const KakaoPaySuccess=(props)=>{
     return(
         <div>
             
-            <div>
+            <div style={orderInfo.amount!=null?{}:{display:"none"}}>
                 <h2>상품 주문이 완료되었습니다.</h2>
                 <h2>상품명 : {orderInfo.item_name}</h2>
                 <h2>승인 시간: {orderInfo.approved_at}</h2>
-                <h2>총 주문 금액: {orderInfo.amount["total"]}</h2>
+                <h2>총 주문 금액: {orderInfo.amount!=null?orderInfo.amount["total"]:"0"}</h2>
+                <div>
+                <Link to="/" style={{textDecoration: 'none'}}>
+                                    <Button >쇼핑 계속하기</Button>
+                </Link>
+                <Link to="/order" style={{textDecoration: 'none'}}>
+                                    <Button >주문 내역 확인</Button>
+                </Link>
+                </div>
             </div>
+            <div style={orderInfo.amount!=null?{display:"none"}:{}}>
+                <h2>잘못된 접근입니다.</h2>
+                <div>
+                <Link to="/" style={{textDecoration: 'none'}}>
+                                    <Button >홈으로 되돌아가기</Button>
+                </Link>
+                </div>
+            </div>
+            
         </div>
     );
 
