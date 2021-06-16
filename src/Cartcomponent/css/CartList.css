@@ -28,5 +28,9 @@
     height: 0;
     overflow: hidden;
 }
+.order_user p{
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
 
 
