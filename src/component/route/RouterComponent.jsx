@@ -8,6 +8,7 @@ import AddCart from "../../Cartcomponent/AddCart";
 import CartList from "../../Cartcomponent/CartList";
 import OrderMain from "../../Ordercomponent/OrderMain";
 import KakaoPaySuccess from '../../Ordercomponent/KakaoPaySuccess';
+import ChatComponent from "../../Chatcomponent/ChatMain";
 const AppRouter = () => {
     return(
         <div style={style}>
@@ -22,6 +23,7 @@ const AppRouter = () => {
                         
                         <Route exact path="/order" component={OrderMain}/>
                         <Route path="/order/kakaoPaySuccess" component={KakaoPaySuccess}/>
+                        <Route exact path="/chat" component={ChatComponent}/>
                     </Switch>
         </div>
     );

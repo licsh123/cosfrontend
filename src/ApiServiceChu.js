@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const USER_API_BASE_URL = "http://localhost:8081/board";
 
-class ApiService {
+class ApiServiceChu {
 
 
     addCart(cart){
@@ -43,8 +43,13 @@ class ApiService {
     kakaoPayTest(test){
         return axios.get("http://localhost:8081/order/kakaoPaySuccess"+test)
     }
+    
+    //채팅 보낸 내용 backend로전송
+    submitChat(chat){
+        return axios.post("http://localhost:8081/chat/submit",chat)
+    }
 
 
 }
 
-export default new ApiService();
+export default new ApiServiceChu();
